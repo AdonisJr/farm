@@ -1,30 +1,31 @@
 import React from "react";
 import Cookies from "universal-cookie";
 import { Link } from "react-router-dom";
-import headDesign from "../assets/headDesign.jpg"
+import headDesign from "../assets/headDesign.jpg";
 
 export default function Header({
   user,
   setUser,
   activePage,
   handleActivePage,
-  setAccessToken
+  setAccessToken,
+  accessToken
 }) {
   const cookies = new Cookies({ path: "/" });
   return (
     <header className="w-full">
       <div className="w-full relative">
         <img src={headDesign} alt="Design" className="w-full" />
-        <div className="w-full absolute bottom-0 bg-neutral-700 h-10 opacity-30">
-
-        </div>
+        <div className="w-full absolute bottom-0 bg-neutral-700 h-10 opacity-30"></div>
       </div>
       <nav className="flex justify-between items-center text-white p-2 sm:p-5 gap-2 bg-neutral-900">
         <div>
-          <Link to={'/'} className="hover:text-slate-200">Criminal Activity Monitoring</Link>
+          <p className="hover:text-slate-200 cursor-pointer" onClick={() => handleActivePage("home")}>
+            Crime Monitoring
+          </p>
         </div>
 
-        {user.id ? 
+        {user.id ? (
           <div className="flex gap-2 items-center">
             <p className="text-slate-300 p-3">
               {user.last_name + ", " + user.first_name}
@@ -34,13 +35,13 @@ export default function Header({
               onClick={() => {
                 cookies.remove("user");
                 setUser({});
-                setAccessToken('');
+                setAccessToken("");
               }}
             >
               SIGN OUT
             </button>
           </div>
-         : 
+        ) : (
           <div className="flex gap-2 items-center text-xs font-semibold">
             <Link
               to="/signIn"
@@ -55,32 +56,34 @@ export default function Header({
               SIGN UP
             </Link>
           </div>
-        }
+        )}
       </nav>
       <div className="flex justify-center gap-5 pt-2 bg-neutral-800 text-yellow-500 text-md font-bold">
         <button
           className={`hover:text-yellow-600 duration-200 p-2 rounded-t-sm ${
-            activePage === "report tracker" ? "text-yellow-600 bg-slate-200" : ""
-          }`}
-          onClick={() => handleActivePage("report tracker")}
+            activePage === "crime" ? "text-yellow-600 bg-slate-200" : ""
+          }
+          `}
+          onClick={() => handleActivePage("crime")}
+          
         >
-          REPORT TRACKER
+          REPORT CRIME
         </button>
         <button
           className={`hover:text-yellow-600 duration-200 p-2 rounded-t-sm ${
-            activePage === "person of concern" ? "text-yellow-600 bg-slate-200" : ""
+            activePage === "wanted" ? "text-yellow-600 bg-slate-200" : ""
           }`}
-          onClick={() => handleActivePage("person of concern")}
+          onClick={() => handleActivePage("wanted")}
         >
-          PERSON OF CONCERN
+          REPORT WANTED PERSON
         </button>
         <button
           className={`hover:text-yellow-600 duration-200 p-2 rounded-t-sm ${
-            activePage === "officer" ? "text-yellow-600 bg-slate-200" : ""
+            activePage === "missing" ? "text-yellow-600 bg-slate-200" : ""
           }`}
-          onClick={() => handleActivePage("officer")}
+          onClick={() => handleActivePage("missing")}
         >
-          OFFICER
+          REPORT MISSING PERSON
         </button>
       </div>
     </header>
