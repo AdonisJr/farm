@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
 
-export default function GoogleMap({ apiKey, farms, currentLocation }) {
+export default function GoogleMap({ farms, currentLocation }) {
   const currentPosition = {
     lat: 8.044897231351126,
     lng: 126.21871469053765,
   };
+
+  const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
   const getSpecificDate = (created_at) => {
     const options = {
@@ -34,10 +36,9 @@ export default function GoogleMap({ apiKey, farms, currentLocation }) {
               <Marker
                 key={farm.id}
                 position={{ lat: farm.lat, lng: farm.lng }}
-                title={`Owner: ${farm.first_name}${farm.middle_name ? ` ${farm.middle_name}` : ''}${farm.last_name ? ` ${farm.last_name}` : ''}${farm.suffix ? ` ${farm.suffix}` : ''} 
-                Lot Size: ${farm.lot_size}`}
-
-                icon={"http://localhost:3000/currentMark.png"}
+                title={`Owner: ${farm.first_name}${farm.middle_name ? ` ${farm.middle_name}` : ''}${farm.last_name ? ` ${farm.last_name}` : ''}${farm.suffix ? ` ${farm.suffix}` : ''}\nLot Size: ${farm.lot_size}\nStatus: ${farm.status}`}
+                
+                icon = {`${farm.status === 'APPROVED' ? 'http://localhost:3000/currentMark.png' : ''}`}
               />
           ))
 

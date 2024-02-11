@@ -5,6 +5,7 @@ import headDesign from "../../assets/headDesign.jpg"
 import Settings from "./Settings";
 import OtherInfo from "./OtherInfo";
 import ChangePassword from "./ChangePassword";
+import CustomConfirmModal from "../CustomConfirmModal";
 
 
 export default function MemberHeader({
@@ -19,8 +20,24 @@ export default function MemberHeader({
 }) {
   const cookies = new Cookies({ path: "/" });
   const [showInformation, setInformation] = useState(false)
-
+  const [showConfirm, setConfirm] = useState(false);
   const [showChangePass, setShowChangePass] = useState(false);
+
+  const handleConfirm = async () => {
+    // Perform delete operation or call the delete function
+    setConfirm(false)
+    if (settingsOpen) {
+      handleSettings();
+    }
+    cookies.remove("user");
+    setUser({});
+    setAccessToken('');
+  };
+
+  const handleCancel = () => {
+    // User clicked "No" or closed the dialog
+    setConfirm(false);
+  };
 
   useEffect(() => { console.log(settingsOpen) }, [settingsOpen])
   return (
@@ -31,7 +48,7 @@ export default function MemberHeader({
 
         </div>
       </div> */}
-      {/* }<OtherInfo accessToken={accessToken} setInformation={setInformation} isAdmin={true} user={memberSelected} setMemberSelected={setMemberSelected} /> */}
+      {/* <OtherInfo accessToken={accessToken} setInformation={setInformation} isAdmin={true} user={memberSelected} setMemberSelected={setMemberSelected} /> */}
       {
         showInformation ? <OtherInfo user={user} setInformation={setInformation} isAdmin={true} accessToken={accessToken} /> : ""
       }
@@ -39,23 +56,36 @@ export default function MemberHeader({
         !showChangePass ? "" :
           <ChangePassword user={user} accessToken={accessToken} setShowChangePass={setShowChangePass} />
       }
+      {showConfirm ?
+        <CustomConfirmModal
+          message={`Are you sure you wan't to logout?`}
+          // selected={deleteSelected}
+          logout={true}
+          onConfirm={handleConfirm}
+          onCancel={handleCancel}
+        />
+        : ""}
 
-      <nav className="flex justify-between items-center text-black p-2 sm:p-5 gap-2 bg-white rounded-s-lg shadow-lg">
+      <nav className="flex justify-between items-center p-2 sm:p-5 gap-2 bg-teal-600 m-4 rounded-xl">
         {
-          settingsOpen ? <Settings user={user} setInformation={setInformation} accessToken={accessToken} setShowChangePass={setShowChangePass} /> : ""
+          settingsOpen ? <Settings user={user} setConfirm={setConfirm} setInformation={setInformation} accessToken={accessToken} setShowChangePass={setShowChangePass} /> : ""
+        }
+        {
+          !showChangePass ? "" :
+            <ChangePassword user={user} accessToken={accessToken} setShowChangePass={setShowChangePass} />
         }
         <div>
-          <p className="text-black font-bold">{activePage}</p>
+          {/* <p className="text-black font-bold">{activePage}</p> */}
         </div>
 
         {user.id ?
           <div className="flex gap-1" onClick={handleSettings}>
-            <div className="cursor-pointer">
+            <div className="cursor-pointer text-white">
               <p className="">
                 {user.last_name + ", " + user.first_name}
 
               </p>
-              <span className="text-sm text-slate-600">{user.role}</span>
+              <span className="text-sm text-slate-300 font-bold">{user.role}</span>
             </div>
             <div className="flex pt-1 cursor-pointer">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className={`bi bi-chevron-down ${settingsOpen ? 'rotate-180' : 'rotate-0'}`} viewBox="0 0 16 16">
@@ -68,45 +98,19 @@ export default function MemberHeader({
           <div className="flex gap-2 items-center text-xs font-semibold">
             <Link
               to="/signIn"
-              className="text-xs font-semibold py-3 px-5 bg-teal-500 hover:bg-teal-600 hover:shadow-lg rounded-md text-white duration-200"
+              className="text-xs font-semibold py-3 px-5 bg-white hover:bg-slate-100 hover:shadow-lg rounded-md text-black duration-200"
             >
               SIGN IN
             </Link>
             <Link
               to="/signUp"
-              className="text-xs font-semibold py-3 px-5 bg-teal-500 hover:bg-teal-600 hover:shadow-lg rounded-md text-white duration-200"
+              className="text-xs font-semibold py-3 px-5 bg-white hover:bg-slate-50 hover:shadow-lg rounded-md text-black duration-200"
             >
               SIGN UP
             </Link>
           </div>
         }
       </nav>
-      {/* <div className="flex justify-center gap-5 pt-2 bg-neutral-800 text-yellow-500 text-md font-bold">
-        <button
-          className={`hover:text-yellow-600 duration-200 p-2 rounded-t-sm ${
-            activePage === "report tracker" ? "text-yellow-600 bg-slate-200" : ""
-          }`}
-          onClick={() => handleActivePage("report tracker")}
-        >
-          REPORT TRACKER
-        </button>
-        <button
-          className={`hover:text-yellow-600 duration-200 p-2 rounded-t-sm ${
-            activePage === "person of concern" ? "text-yellow-600 bg-slate-200" : ""
-          }`}
-          onClick={() => handleActivePage("person of concern")}
-        >
-          PERSON OF CONCERN
-        </button>
-        <button
-          className={`hover:text-yellow-600 duration-200 p-2 rounded-t-sm ${
-            activePage === "officer" ? "text-yellow-600 bg-slate-200" : ""
-          }`}
-          onClick={() => handleActivePage("officer")}
-        >
-          OFFICER
-        </button>
-      </div> */}
     </header>
   );
 }

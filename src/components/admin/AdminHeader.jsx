@@ -12,26 +12,20 @@ export default function AdminHeader({
 }) {
   const cookies = new Cookies({ path: "/" });
   return (
-    <header className="w-full">
-      {/* <div className="w-full relative">
-        <img src={headDesign} alt="Design" className="w-full" />
-        <div className="w-full absolute bottom-0 bg-neutral-700 h-10 opacity-30">
-
-        </div>
-      </div> */}
-      <nav className="flex justify-between items-center text-black p-2 sm:p-5 gap-2 bg-white rounded-s-lg">
+    <header className="w-full m-2">
+      <nav className="flex justify-between items-center text-black p-2 sm:p-5 gap-2 bg-teal-600 rounded-s-lg">
         <div>
-          <p className="text-black font-bold">{activePage}</p>
+          <p className="text-white font-bold">ADMIN DASHBOARD</p>
         </div>
 
         {user.id ? 
           <div className="flex flex-col">
-            <p className="">
+            <p className="text-white">
               {user.last_name + ", " + user.first_name}
               
             </p>
             
-            <span className="text-sm text-slate-600">{user.role}</span>
+            <span className="text-sm text-slate-300 font-semibold">{user.role}</span>
           </div>
          : 
           <div className="flex gap-2 items-center text-xs font-semibold">

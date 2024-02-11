@@ -13,8 +13,6 @@ export default function OtherInfo({ setInformation, isAdmin, user, setMemberSele
         { label: 'male', value: "male" },
         { label: 'female', value: 'female' }
     ]
-    console.log(user)
-    // TOAST
     const showErrorMessage = (message) => {
         toast.error(message, {
             position: toast.POSITION.TOP_LEFT,
@@ -27,40 +25,9 @@ export default function OtherInfo({ setInformation, isAdmin, user, setMemberSele
             autoClose: 2000,
         });
     };
-
-    // HANDLE FUNCTIONS
-
-    const handlePhilhealth = (e) => {
-        if (e.target.checked) {
-            setCredentials({ ...credentials, philhealth: 1 })
-        } else {
-            setCredentials({ ...credentials, philhealth: 0 })
-        }
-    }
-    const handleFourps = (e) => {
-        if (e.target.checked) {
-            setCredentials({ ...credentials, fourps: 1 })
-        } else {
-            setCredentials({ ...credentials, fourps: 0 })
-        }
-    }
-    const handleSenior = (e) => {
-        if (e.target.checked) {
-            setCredentials({ ...credentials, senior_citizen: 1 })
-        } else {
-            setCredentials({ ...credentials, senior_citizen: 0 })
-        }
-    }
-    const handlePensioner = (e) => {
-        if (e.target.checked) {
-            setCredentials({ ...credentials, pensioner: 1 })
-        } else {
-            setCredentials({ ...credentials, pensioner: 0 })
-        }
-    }
     return (
         <>
-            <div className='z-30 absolute top-0 left-0 flex justify-center items-center w-screen h-4/6 p-5'>
+            <div className='z-30 absolute top-0 left-0 flex justify-center items-center w-full h-4/6 p-5'>
                 <ToastContainer />
                 <div className='relative bg-white p-2 z-50 rounded-lg w-5/6 border-4 h-full overflow-y-scroll border-slate-200'>
                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -170,19 +137,19 @@ export default function OtherInfo({ setInformation, isAdmin, user, setMemberSele
                             />
                         </div>
                     </div>
-                    <div className="flex w-2/12 flex-col">
+                    <div className="flex flex-col">
                         <label className="ps-2">Address</label>
                         <input
                             type="text"
                             placeholder="090909090954"
                             className="shadow-md px-3 py-1 rounded-md border-2 border-slate-400"
-                            value={accountDetails.barangay}
+                            value={accountDetails.province + ", " + accountDetails.city + ", " + accountDetails.barangay}
                             disabled={isAdmin}
                         />
                     </div>
                 </div>
             </div>
-            <div className='w-full h-screen absolute top-0 left-0 bg-indigo-900 z-10 opacity-40'>
+            <div className='w-full h-full absolute top-0 left-0 bg-teal-900 z-10 opacity-30'>
 
             </div>
         </>

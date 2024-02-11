@@ -19,7 +19,7 @@ import {
 export default function Register() {
   const [loading, setLoading] = useState(false);
   const [credentials, setCredentials] = useState({ role: 'user' });
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(true);
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
@@ -158,49 +158,71 @@ export default function Register() {
 
   useEffect(() => { getBarangay() }, [])
   return (
-    <main className="flex flex-col min-h-screen items-center justify-center text-center bg-neutral-200 md:flex-row p-5">
+    <main className="flex flex-col min-h-screen items-centesr justify-center items-center bg-neutral-200 md:flex-row p-2 text-sm">
       <ToastContainer />
-      <div className="p-10 w-full md:w-2/6 bg-neutral-300 rounded-lg md:rounded-tr-none md:rounded-br-none md:rounded-tl-lg md:rounded-bl-lg">
-        <img src="/reg.svg" alt="" />
-      </div>
-      <div className="w-full flex flex-col p-4 bg-white rounded-md gap-2 sm:w-4/6 md:w-3/6 md:rounded-tr-md md:rounded-br-md md:rounded-tl-none md:rounded-bl-none">
-        <p className="text-4xl m-5 font-bold">Sign Up</p>
+      <div className="w-2/6 flex flex-col px-6 gap-2 bg-white">
+        <div className="flex gap-1 items-center justify-center">
+
+          <img src="http://localhost:3000/logo.png" className="w-20" />
+          <p className="text-lg font-bold">CCSMS</p>
+        </div>
+        <p className="text-lg font-bold">Sign In</p>
         {/* FIRST NAME */}
-        <div className="flex justify-center items-center rounded-md">
-          <label htmlFor="" className="w-3/12">
-            First Name:
-          </label>
-          <input
-            type="text"
-            className="border-2 border-neutral-500 w-4/6 p-2 rounded-md"
-            onChange={(e) =>
-              setCredentials({ ...credentials, first_name: e.target.value })
-            }
-            value={credentials.first_name}
-          />
+        <div className="flex gap-10 w-full">
+          <div className="flex flex-col justify-center w-3/6">
+            <input
+              type="text"
+              className="border-b-2 border-neutral-400 w-full py-2 outline-none"
+              placeholder="First name"
+              onChange={(e) =>
+                setCredentials({ ...credentials, first_name: e.target.value })
+              }
+              value={credentials.first_name}
+            />
+          </div>
+          <div className="flex flex-col justify-center w-3/6">
+            <input
+              type="text"
+              className="border-b-2 border-neutral-400 w-full py-2 outline-none"
+              placeholder="Middle name"
+              onChange={(e) =>
+                setCredentials({ ...credentials, middle_name: e.target.value })
+              }
+              value={credentials.middle_name}
+            />
+          </div>
         </div>
-        {/* LAST NAME */}
-        <div className="flex justify-center items-center rounded-md">
-          <label htmlFor="" className="w-3/12">
-            Last Name:
-          </label>
-          <input
-            type="text"
-            className="border-2 border-neutral-500 w-4/6 p-2 rounded-md"
-            onChange={(e) =>
-              setCredentials({ ...credentials, last_name: e.target.value })
-            }
-            value={credentials.lastName}
-          />
+        <div className="flex gap-10 w-full">
+          <div className="flex flex-col justify-center w-3/6">
+            <input
+              type="text"
+              className="border-b-2 border-neutral-400 w-full py-2 outline-none"
+              placeholder="Last name"
+              onChange={(e) =>
+                setCredentials({ ...credentials, last_name: e.target.value })
+              }
+              value={credentials.last_name}
+            />
+          </div>
+          <div className="flex flex-col justify-center w-3/6">
+            <input
+              type="text"
+              className="border-b-2 border-neutral-400 w-full py-2 outline-none"
+              placeholder="Suffix"
+              onChange={(e) =>
+                setCredentials({ ...credentials, suffix: e.target.value })
+              }
+              value={credentials.suffix}
+            />
+          </div>
         </div>
+
         {/* EMAIL */}
         <div className="flex justify-center items-center rounded-md">
-          <label htmlFor="" className="w-3/12">
-            Email:
-          </label>
           <input
             type="email"
-            className="border-2 border-neutral-500 w-4/6 p-2 rounded-md"
+            placeholder="Email"
+            className="border-b-2 border-neutral-400 w-full py-2 outline-none"
             onChange={(e) =>
               setCredentials({ ...credentials, email: e.target.value })
             }
@@ -208,51 +230,50 @@ export default function Register() {
           />
         </div>
         {/* gender */}
-        <div className="flex justify-center items-center rounded-md">
-          <label htmlFor="" className="w-3/12">
+        <div className="flex flex-col justify-center rounded-md">
+          <label htmlFor="" className="">
             Gender:
           </label>
           <Select
             options={genderOpt}
             onChange={(e) => setCredentials({ ...credentials, gender: e.value })}
-            defaultValue={{ label: credentials.gender, value: credentials.gender }}
-            isSearchable={false}
-            className="w-4/6 border-2 border-neutral-500 rounded-lg outline-none"
+            value={{ label: credentials.gender, value: credentials.gender }}
+            className="w-full outline-none"
+            placeholder="Gender"
           />
         </div>
         {/* Date of birth */}
-        <div className="flex justify-center items-center rounded-md">
-          <label htmlFor="" className="w-3/12">
+        <div className="flex flex-col justify-center rounded-md">
+          <label htmlFor="" className="">
             Date of Birth:
           </label>
           <input
             type="date"
-            className="border-2 border-neutral-500 w-4/6 p-2 rounded-md"
+            placeholder="Date of Birth"
+            className="border-2 border-neutral-400 w-full p-2 rounded-sm"
             onChange={(e) =>
               setCredentials({ ...credentials, birth_date: e.target.value })
             }
             value={credentials.birth_date}
           />
         </div>
-        <div className="flex justify-center items-center rounded-md">
-          <label className="ps-2 w-3/12">Barangay</label>
+        <div className="flex flex-col justify-center rounded-md">
+          <label className="">Barangay</label>
           <Select
             options={barangayOpt}
             value={{ label: credentials.barangay, value: credentials.barangay }}
             onChange={(e) =>
               setCredentials({ ...credentials, barangay: e.value })
             }
-            className="w-4/6"
+            className="w-full"
           />
         </div>
         {/* PASSWORD */}
-        <div className="flex relative gap-1 justify-center items-center rounded-md">
-          <label htmlFor="" className="w-3/12">
-            Password:
-          </label>
+        <div className="flex relative gap-10 justify-center items-center rounded-md">
+
           <input
             type={showPassword === true ? 'password' : 'text'}
-            className="border-2 border-neutral-500 w-2/6 p-2 rounded-md"
+            className="border-b-2 border-neutral-400 w-3/6 py-2 outline-none"
             placeholder="Password"
             onChange={(e) =>
               setCredentials({ ...credentials, password: e.target.value })
@@ -260,8 +281,8 @@ export default function Register() {
             value={credentials.password}
           />
           <input
-            type={showPassword === true ? 'password' : 'text'}
-            className="border-2 border-neutral-500 w-2/6 p-2 rounded-md"
+            type={showPassword ? 'password' : 'text'}
+            className="border-b-2 border-neutral-400 w-3/6 py-2 outline-none"
             placeholder="Confirm Password"
             onChange={(e) =>
               setCredentials({
@@ -271,18 +292,18 @@ export default function Register() {
             }
             value={credentials.confirm_password}
           />
-          <input type="checkbox" className="absolute top-4 right-5 md:right-6 lg:right-8 cursor-pointer" onChange={handleToggle} />
+          <input type="checkbox" className="absolute top-4 right-0 cursor-pointer" onChange={handleToggle} />
 
         </div>
         {/* PASSWORD */}
 
         <div className="flex gap-1 justify-center items-center rounded-md">
-          <label htmlFor="" className="w-3/12">
-            Phone Number:
-          </label>
+
+        {showPassword}wewe
           <input
             type="text"
-            className="border-2 border-neutral-500 w-4/6 p-2 rounded-md"
+            placeholder="Phone number"
+            className="border-b-2 border-neutral-400 py-2 w-full outline-none"
             onChange={(e) =>
               setCredentials({ ...credentials, phone_number: e.target.value })
             }
@@ -292,12 +313,12 @@ export default function Register() {
           <LoadingButton
             isLoading={loading}
             text="Register"
-            size="w-5/6 mt-5"
+            size="w-5/6 mt-2"
             onClick={handleSubmit}
           />
         </div>
-        <div>
-          <p className="mb-0 mt-2 pt-1 text-sm">
+        <div className="py-2 text-center">
+          <p className="mb-0 text-sm">
             Already have an account?
             <a
               href="/signIn"

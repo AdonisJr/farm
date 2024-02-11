@@ -3,7 +3,7 @@ import React from 'react';
 export default function CustomConfirmModal({ message, onConfirm, onCancel, selected, logout }) {
   return (
     <>
-      <div className="fixed inset-0 flex items-center justify-center z-20">
+      <div className="fixed inset-0 flex items-center justify-center z-30">
         <div className="bg-white p-8 rounded shadow-md">
           <p className="mb-4">{message}</p>
           {logout ? "" : <p className="mb-4">ID: {selected}</p>}
@@ -23,7 +23,7 @@ export default function CustomConfirmModal({ message, onConfirm, onCancel, selec
           </div>
         </div>
       </div>
-      <div className='w-full h-full bg-indigo-900 opacity-20 fixed top-0 left-0'></div>
+      <div className='w-full h-full z-20 bg-teal-900 opacity-30 fixed top-0 left-0'></div>
     </>
 
   )

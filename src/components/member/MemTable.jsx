@@ -72,7 +72,7 @@ export default function MemTable({ member, setSelected, setModal, selected, acce
                 />
                 : ""
             }
-            <table className='table-auto w-full'>
+            <table className='table-auto w-full text-xs'>
                 <thead className='bg-blue-100'>
                     <tr>
                         <th className='p-2'>ID</th>
@@ -86,6 +86,7 @@ export default function MemTable({ member, setSelected, setModal, selected, acce
                         <th>Gender</th>
                         <th>Phone</th>
                         <th>Role</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -105,7 +106,8 @@ export default function MemTable({ member, setSelected, setModal, selected, acce
                                     <td>{data.gender}</td>
                                     <td>{data.phone_number}</td>
                                     <td>{data.role}</td>
-                                    <td className='flex flex-col gap-2 p-2'>
+                                    <td><p className={`${data.status === 'active' ? 'bg-emerald-300' :'bg-red-200'} py-1`}>{data.status}</p></td>
+                                    <td className='flex flex-col gap-2 p-2'> 
                                         <div className='flex gap-1 items-center cursor-pointer hover:underline'
                                             onClick={(e) => [setModal(true), setSelected(data), console.log(data)]}>
                                             <svg

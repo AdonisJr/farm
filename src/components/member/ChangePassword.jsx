@@ -67,7 +67,7 @@ export default function ChangePassword({ accessToken, setShowChangePass, user })
                     </div>
                 </div>
             </div>
-            <div className='w-full h-full absolute top-0 left-0 bg-teal-900 z-10 opacity-40'>
+            <div className='w-full h-full absolute top-0 left-0 bg-teal-900 z-10 opacity-30'>
 
             </div>
         </>

@@ -14,6 +14,13 @@ import Dashboard from "../components/admin/Dashboard";
 import Mem from "../components/member/Mem";
 import Subsidy from "../components/member/Subsidy";
 import FarmLand from "../components/member/FarmLand";
+import RequestedFarm from "../components/admin/RequestedFarm";
+import AdmCash from "../components/admin/AdmCash";
+import AdmRice from "../components/admin/AdmRice";
+import AdmRodenticide from "../components/admin/AdmRodenticide";
+import AdmLiquid from "../components/admin/AdmLiquid";
+import AdmFungicide from "../components/admin/AdmFungicide";
+import AdmBion from "../components/admin/AdmBion";
 const socket = io.connect("http://localhost:3001");
 
 export default function Admin() {
@@ -31,7 +38,7 @@ export default function Admin() {
   const handleValidated = (value) => {
     setValidated(value)
   }
-  
+
 
   // handle FUNCTIONS
 
@@ -79,31 +86,36 @@ export default function Admin() {
       alert("Geolocation is not available in your browser.")
     }
   }, [])
-  // useEffect(()=>{
-  //   getReportedCrime();
-  // },[validated, q])
+
   return (
-    <main className="flex min-h-screen max-w-screen gap-5 bg-slate-200 overflow-hidden">
-      <div className="w-64">
-        <Sidebar user={user} handleActivePage={handleActivePage} activePage={activePage} setUser={setUser} setAccessToken={setAccessToken} />
-      </div>
-      <div className="flex flex-col gap-5 w-full">
+    <main className="flex min-h-screen max-w-screen gap-5 bg-slate-200 overflow-hidden font-mono">
+
+      <div className="flex ps-5 flex-col gap-5 w-full">
         <AdminHeader user={user}
           setUser={setUser}
           activePage={activePage}
           handleActivePage={handleActivePage}
           setAccessToken={setAccessToken} />
-        <div className="min-h-screen pe-2">
+        <div className="min-h-screen px-4">
           {
+            !accessToken ? "" :
             activePage === 'User' ? <Mem accessToken={accessToken} user={user} /> :
               activePage === 'Farm Land' ? <FarmLand accessToken={accessToken} currentLocation={currentLocation} /> :
-                activePage === 'Subsidy' ? <Subsidy accessToken={accessToken} user={user} /> 
-               :
-                <Dashboard accessToken={accessToken} user={user} />
+                activePage === 'CASH' ? <AdmCash accessToken={accessToken} user={user} /> :
+                  activePage === 'REQUESTED FARM' ? <RequestedFarm accessToken={accessToken} user={user} /> :
+                    activePage === 'RICE SEED' ? <AdmRice accessToken={accessToken} user={user} /> :
+                      activePage === 'RODENTICIDE' ? <AdmRodenticide accessToken={accessToken} user={user} /> :
+                        activePage === 'LIQUID ZINC' ? <AdmLiquid accessToken={accessToken} user={user} /> :
+                          activePage === 'FUNGICIDE' ? <AdmFungicide accessToken={accessToken} user={user} /> :
+                            activePage === 'BIO-N' ? <AdmBion accessToken={accessToken} user={user} />
+                              :
+                              <Dashboard accessToken={accessToken} user={user} />
           }
         </div>
       </div>
-
+      <div className="w-64">
+        <Sidebar user={user} handleActivePage={handleActivePage} activePage={activePage} setUser={setUser} setAccessToken={setAccessToken} />
+      </div>
 
     </main>
   );

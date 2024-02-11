@@ -40,7 +40,7 @@ export default function Login() {
       return showErrorMessage("Invalid email format.");
 
     setLoading(true);
-    
+
     await axios
       .post("/api/auth", credential)
       .then((res) => {
@@ -62,19 +62,41 @@ export default function Login() {
   return (
     <section className="h-screen">
       <ToastContainer />
-      <div className="h-full px-5">
+      <div className="h-full px-5 bg-slate-200">
         {/* <!-- Left column container with background--> */}
-        <div className="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between">
-          <div className="shrink-1 mb-12 grow-0 basis-auto md:mb-0 md:w-9/12 md:shrink-0 lg:w-6/12 xl:w-6/12">
-            <img
+        <div className="flex h-full flex-wrap items-center justify-center">
+          <div className="w-2/6 h-3/6 bg-teal-500 flex flex-col justify-between">
+            <div className="bg-slate-100 py-2 flex justify-center items-center">
+              <img src="http://localhost:3000/logo.png" className="w-20" />
+
+              <p className="font-serif text-3xl">CCSMS</p>
+            </div>
+            {/* <img
               src="/login.svg"
               className="w-full"
               alt="Sample image"
-            />
+            /> */}
+            <div className="p-4 text-white">
+
+              <p className="text-2xl font-bold">Welcome</p>
+              <p className="text-lg">Pleasae Sign In to start using this platform</p>
+
+              <p className="mb-0 mt-2 pt-1 text-sm text-black">
+                {"Don't"} have account yet?
+                <a
+                  href="/signUp"
+                  className="text-danger ps-2 font-semibold transition duration-150 ease-in-out hover:text-danger-600 focus:text-danger-600 active:text-danger-700 hover:underline"
+                >
+                  Register
+                </a>
+              </p>
+
+            </div>
+            <p className="text-xs p-2 text-white">Copyrights, All rights reserved.</p>
           </div>
 
           {/* <!-- Right column container --> */}
-          <div className="mb-12 w-full md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12">
+          <div className="w-2/6 p-4 h-3/6 bg-white">
             <form>
               <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
                 <p className="mx-4 mb-0 text-center font-semibold dark:text-white">
@@ -93,11 +115,10 @@ export default function Login() {
                   className={`pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-neutral-500 
                   transition-all duration-200 ease-out peer-focus:-translate-y-[1.15rem]
                   peer-focus:scale-[0.8] peer-focus:bg-white peer-focus:px-2 peer-focus:text-gray-500 motion-reduce:transition-none
-                  ${
-                    credential.email === ""
+                  ${credential.email === ""
                       ? ""
                       : "-translate-y-[1.15rem] scale-[0.8] bg-white px-2"
-                  }`}
+                    }`}
                 >
                   Email address
                 </label>
@@ -115,11 +136,10 @@ export default function Login() {
                   truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 
                   ease-out peer-focus:-translate-y-[1.15rem] peer-focus:scale-[0.8]  peer-focus:bg-white peer-focus:px-2
                   peer-focus:text-gray-500 motion-reduce:transition-none
-                  ${
-                    credential.password === ""
+                  ${credential.password === ""
                       ? ""
                       : "-translate-y-[1.15rem] scale-[0.8] bg-white px-2"
-                  }`}
+                    }`}
                 >
                   Password
                 </label>
@@ -134,15 +154,6 @@ export default function Login() {
                   onClick={handleSubmit}
                   size="w-full"
                 />
-                <p className="mb-0 mt-2 pt-1 text-sm">
-                  {"Don't"} have account yet?
-                  <a
-                    href="/signUp"
-                    className="text-danger ps-2 font-semibold transition duration-150 ease-in-out hover:text-danger-600 focus:text-danger-600 active:text-danger-700 hover:underline"
-                  >
-                    Register
-                  </a>
-                </p>
               </div>
             </form>
           </div>
