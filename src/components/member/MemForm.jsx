@@ -256,7 +256,7 @@ export default function MemForm({ setSelected, setModal, selected, accessToken }
                                     <Select
                                         options={statusOpt}
                                         onChange={(e) => setCredentials({ ...credentials, status: e.value })}
-                                        defaultValue={{ label: credentials.status, value: credentials.role }}
+                                        defaultValue={{ label: credentials.status, value: credentials.status }}
                                         isSearchable={false}
                                     />
                                 </div>
