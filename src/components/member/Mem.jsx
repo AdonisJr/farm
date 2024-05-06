@@ -58,7 +58,7 @@ export default function Mem({ accessToken, user }) {
                             />
                         </div>
                     </div>
-                    <button className='flex gap-1 items-center py-1 px-4 rounded-md bg-blue-400 text-white hover:bg-blue-500 hover:font-bold duration-200'
+                    <button className='flex gap-1 items-center py-1 px-4 rounded-md bg-teal-400 text-white hover:bg-teal-500 hover:font-bold duration-200'
                         onClick={(e) => setModal(true)}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
                             <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />

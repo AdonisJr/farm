@@ -3,12 +3,34 @@ import axios from 'axios';
 import BarChartVisual from './BarChartVisual';
 import LineChartVisual from './LineChatVisual';
 import AreaChartVisual from './AreaChartVisual';
+import Select from "react-select";
 
 export default function Dashboard({ user, accessToken }) {
   const [overall, setOverall] = useState([]);
   const [totalCash, setTotalCash] = useState([]);
   const [totalBags, setTotalBags] = useState([]);
   const [member, setMember] = useState([]);
+  const [filter, setFilter] = useState('yearly');
+  const [year, setYear] = useState("");
+  const [month, setMonth] = useState("");
+  const [week, setWeek] = useState(1)
+  const currentYear = new Date().getFullYear();
+  const [cash, setCash] = useState([]);
+  const [rice, setRice] = useState([]);
+
+  const yearsOpt = Array.from({ length: currentYear - 2009 }, (_, index) => ({
+    value: (currentYear - index).toString(),
+    label: (currentYear - index).toString(),
+  }));
+
+  const monthsOpt = Array.from({ length: 12 }, (_, index) => {
+    const monthIndex = new Date().getMonth();
+    const month = (monthIndex + index) % 12;
+    const monthDate = new Date(0, month);
+    const monthString = monthDate.toLocaleString('default', { month: 'long' });
+    const monthValue = (month + 1).toString().padStart(2, '0');
+    return { value: monthValue, label: monthString };
+  });
 
   const formatter = (amount) => {
     // Using Intl.NumberFormat to format the amount as PHP currency
@@ -42,6 +64,7 @@ export default function Dashboard({ user, accessToken }) {
         },
       })
       .then((res) => {
+        console.log(res.data.data)
         setTotalCash(res.data.data)
       });
 
@@ -73,11 +96,38 @@ export default function Dashboard({ user, accessToken }) {
       });
 
   };
+
+  const getCashSubsidy = async () => {
+    await axios
+      .get(`/subsidy/cash`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        }
+      })
+      .then((res) => {
+        console.log(res.data.data)
+        setCash(res.data.data)
+      });
+
+  };
+  const getRiceSubsidy = async () => {
+    await axios
+      .get(`/subsidy/rice`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        }
+      })
+      .then((res) => {
+        console.log(res.data.data)
+        setRice(res.data.data)
+      });
+
+  };
   useEffect(() => {
     getOverall();
-    getTotalCash();
-    getTotalBags();
     getMember();
+    getCashSubsidy()
+    getRiceSubsidy()
   }, [])
 
 
@@ -156,15 +206,59 @@ export default function Dashboard({ user, accessToken }) {
           <BarChartVisual data={overall} />
         </div>
       </div>
-      
-      <div className='flex flex-col p-5 bg-white text-white'>
-      <p className='font-bold text-slate-600 py-5'> This data shows the total amount of cash distributed to farmers. </p>
-        <LineChartVisual data={totalCash} />
+      <div className='flex flex-col gap-2 bg-slate-100 p-5'>
+        <div className='flex justify-between gap-5'>
+          <div className='flex gap-5'>
+            <div>
+              <input type="radio" name="filter" checked={filter === 'yearly'} value="yearly" onChange={(e) => setFilter(e.target.value)} /> Yearly
+            </div>
+            <div>
+              <input type="radio" name="filter" checked={filter === 'monthly'} value="monthly" onChange={(e) => setFilter(e.target.value)} /> Monthly
+            </div>
+            <div>
+              <input type="radio" name="filter" checked={filter === 'weekly'} value="weekly" onChange={(e) => setFilter(e.target.value)} /> Daily
+            </div>
+          </div>
+          <div>
+            {
+              filter === 'monthly' ?
+                <Select options={yearsOpt} onChange={(e) => setYear(e.value)} />
+                :
+                filter === 'weekly' ?
+                <div className='flex gap-2'>
+                  <div>
+                    Year
+                    <Select options={yearsOpt} onChange={(e) => setYear(e.value)} />
+                  </div>
+                  <div>
+                    Month
+                    <Select options={monthsOpt} onChange={(e) => setMonth(e.value)} />
+                  </div>
+                  {/* <div>
+                    Week
+                    <Select options={[
+                      { label: 1, value: 1 },
+                      { label: 2, value: 2 },
+                      { label: 3, value: 3 },
+                      { label: 4, value: 4 },
+                    ]} onChange={(e) => setWeek(e.value)} />
+                  </div> */}
+                </div> : ""
+            }
+          </div>
+
+        </div>
+
+        <div className='flex flex-col p-5 bg-white text-white'>
+          <p className='font-bold text-slate-600 py-5'> This data shows the total amount of cash distributed to farmers. </p>
+          <LineChartVisual data={cash} filter={filter} month={month} year={year} week={week} />
+        </div>
+        <div className='flex flex-col w-full p-5 bg-white'>
+          <p className='font-bold text-slate-600 py-5'> This data shows the total amount of cash distributed to farmers. </p>
+          <AreaChartVisual data={rice} filter={filter} month={month} year={year} week={week} />
+        </div>
       </div>
-      <div className='flex flex-col w-full p-5 bg-white'>
-      <p className='font-bold text-slate-600 py-5'> This data shows the total amount of cash distributed to farmers. </p>
-        <AreaChartVisual data={totalBags} />
-      </div>
+
     </div>
   )
 }

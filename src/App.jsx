@@ -61,7 +61,7 @@ export default function App() {
             },
           })
           .then((res) => {
-            if (res.data.data.role === "admin") return navigate("/admin");
+            if (res.data.data.role === "admin" || res.data.data.role === "super admin") return navigate("/admin");
             setUser(res.data.data);
           });
       } else {

@@ -4,9 +4,9 @@ import "react-toastify/dist/ReactToastify.css";
 import Select from "react-select";
 import axios from 'axios';
 
-export default function MemForm({ setSelected, setModal, selected, accessToken }) {
+export default function AdminForm({ setSelected, setModal, selected, accessToken, getAdmins }) {
     const [credentials, setCredentials] = useState(selected.id ? selected : { role: "member" });
-    
+
     const statusOpt = [
         { value: 'active', label: 'active' },
         { value: 'inactive', label: 'inactive' },
@@ -19,6 +19,7 @@ export default function MemForm({ setSelected, setModal, selected, accessToken }
     const roleOpt = [
         { value: 'user', label: 'user' },
         { value: 'admin', label: 'admin' },
+        { value: 'super admin', label: 'super admin' },
     ]
     const barangayOpt = [
         { label: 'Basa', value: 'Basa' },
@@ -37,7 +38,7 @@ export default function MemForm({ setSelected, setModal, selected, accessToken }
         { label: 'Cebolin', value: 'Cebolin' },
         { label: 'Manat', value: 'Manat' },
         { label: 'Pangyan', value: 'Pangyan' }
-    ]
+      ]
 
     const showErrorMessage = (message) => {
         toast.error(message, {
@@ -80,6 +81,7 @@ export default function MemForm({ setSelected, setModal, selected, accessToken }
                         setSelected({})
                         setModal(false);
                         setSelected({});
+                        getAdmins();
                     }, 2000)
 
                 }).catch(error => {
@@ -95,6 +97,7 @@ export default function MemForm({ setSelected, setModal, selected, accessToken }
                 .then((res) => {
                     showSuccessMessage(res.data.message)
                     setTimeout(() => { setModal(false); setSelected({}) }, 2000)
+                    getAdmins();
                 }).catch(error => {
                     showErrorMessage(error.response.data.error + error.response.data.message)
                 })

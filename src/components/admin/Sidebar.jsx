@@ -27,6 +27,20 @@ export default function Sidebar({ activePage, handleActivePage, user, setUser, s
           DASHBOARD
         </button>
         <div className="flex flex-col gap-1 border-b-2 border-slate-200">
+          {
+            user.role === "admin" ? "" :
+              <button
+                className={`flex gap-1 hover:bg-teal-500 text-black hover:text-white duration-200 p-2 rounded-t-sm ${activePage === "admin" ? "text-white bg-teal-500" : "text-black"
+                  } duration-200 text-left`}
+                onClick={() => handleActivePage("admin")}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                  <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                </svg>
+                Admin
+              </button>
+          }
+
           <button
             className={`flex gap-1 hover:bg-teal-500 text-black hover:text-white duration-200 p-2 rounded-t-sm ${activePage === "User" ? "text-white bg-teal-500" : "text-black"
               } duration-200 text-left`}
@@ -119,7 +133,7 @@ export default function Sidebar({ activePage, handleActivePage, user, setUser, s
         </div>
 
       </div>
-      <footer className="p-2">
+      <footer className="px-2">
         <button className="flex gap-1 items-center justify-center w-full p-2 bg-white border-2 border-teal-500 hover:bg-teal-500 hover:text-white duration-200"
           onClick={() => {
             cookies.remove("user");
