@@ -83,15 +83,13 @@ export default function Dashboard({ user, accessToken }) {
   };
   const getMember = async () => {
     await axios
-      .get(`/user/all`, {
+      .get(`/user/all?role=member`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
-        },
-        params: {
-          limit: 5
         }
       })
       .then((res) => {
+        console.log(res.data.data)
         setMember(res.data.data)
       });
 

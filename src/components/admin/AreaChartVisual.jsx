@@ -101,14 +101,13 @@ export default function AreaChartVisual({ data, year, month, filter, week }) {
     } else if (filter === 'monthly') {
         newData = calculateMonthlyCashSubsidy(data, parseInt(year))
     } else {
-        newData = calculateWeeklyCashSubsidy(data, parseInt(year), parseInt(month), week)
+        newData = calculateWeeklyCashSubsidy(data, parseInt(year), parseInt(month))
     }
-    console.log(newData)
     return (
         <ResponsiveContainer width="100%" height={300}>
             <AreaChart  data={filter === 'weekly' ? newData.dailyBags : newData}>
-                <XAxis dataKey="year" />
-                <YAxis />
+                <XAxis  dataKey={filter === 'yearly' ? "year" : filter === 'monthly' ? "month" : 'day'} />
+                <YAxis/>
                 <Tooltip />
                 <Area type="monotone" dataKey="total_bags" stroke="#2F5744" fill="#87E0B5" />
             </AreaChart>

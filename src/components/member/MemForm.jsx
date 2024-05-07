@@ -17,7 +17,7 @@ export default function MemForm({ setSelected, setModal, selected, accessToken }
         { value: 'female', label: 'Female' },
     ]
     const roleOpt = [
-        { value: 'user', label: 'user' },
+        { value: 'member', label: 'member' },
         { value: 'admin', label: 'admin' },
     ]
     const barangayOpt = [
