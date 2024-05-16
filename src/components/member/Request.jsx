@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -51,9 +51,15 @@ export default function Request({ type, user, accessToken, setModalOpen, farms, 
 
             }).catch(error => {
                 console.log(error)
-                // showErrorMessage(error.response.data.error + error.response.data.message)
+                showErrorMessage(error.response.data.message)
             })
     }
+
+    useEffect(() => {
+        const now = new Date();
+        const month = now.getMonth() + 1; // getMonth() is zero-based, so add 1
+        setCredentials({ ...credentials, month: month });
+    }, [])
     return (
         <>
             <div className='w-full h-full absolute top-0 left-0 flex justify-center items-center z-40'>
@@ -62,7 +68,7 @@ export default function Request({ type, user, accessToken, setModalOpen, farms, 
                     <p className='py-2 text-lg text-slate-600 font-semibold border-b-2 border-slate-200'>REQUEST {type} SUBSIDY</p>
                     <div className='flex flex-col gap-2'>
                         <label className='ps-2'>Farm I.D</label>
-                        <Select options={farmOpt} onChange={(e) => setCredentials({...credentials, farm_id: e.value})} value={{value: credentials.farm_id, label: credentials.farm_id}} />
+                        <Select options={farmOpt} onChange={(e) => setCredentials({ ...credentials, farm_id: e.value })} value={{ value: credentials.farm_id, label: credentials.farm_id }} />
                     </div>
 
                     <div className={`flex flex-col gap-2 w-full ${credentials.type !== 'CASH' ? 'hidden' : ''}`}>

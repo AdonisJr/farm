@@ -21,6 +21,7 @@ import AdmLiquid from "../components/admin/AdmLiquid";
 import AdmFungicide from "../components/admin/AdmFungicide";
 import AdmBion from "../components/admin/AdmBion";
 import AdminAccounts from "../components/superadmin/AdminAccounts";
+import AdmValidation from "../components/admin/AdmValidation";
 const socket = io.connect("http://localhost:3001");
 
 export default function Admin() {
@@ -108,9 +109,10 @@ export default function Admin() {
                           activePage === 'LIQUID ZINC' ? <AdmLiquid accessToken={accessToken} user={user} /> :
                             activePage === 'FUNGICIDE' ? <AdmFungicide accessToken={accessToken} user={user} /> :
                               activePage === 'BIO-N' ? <AdmBion accessToken={accessToken} user={user} /> :
-                                activePage === 'admin' ? <AdminAccounts accessToken={accessToken} user={user} />
-                                  :
-                                  <Dashboard accessToken={accessToken} user={user} />
+                                activePage === 'admin' ? <AdminAccounts accessToken={accessToken} user={user} /> :
+                                  activePage === 'VALIDATION' ? <AdmValidation accessToken={accessToken} user={user} />
+                                    :
+                                    <Dashboard accessToken={accessToken} user={user} />
           }
         </div>
       </div>

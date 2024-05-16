@@ -286,14 +286,14 @@ const MapWithPolygon = ({ user, accessToken }) => {
                             Crops: ${farm.type}`
             });
 
-            farmPolygon.addListener('mouseover', function (event) {
+            farmPolygon.addListener('click', function (event) {
                 infoWindow.setPosition(event.latLng);
                 infoWindow.open(mapRef.current);
             });
 
-            farmPolygon.addListener('mouseout', function () {
-                infoWindow.close();
-            });
+            // farmPolygon.addListener('mouseout', function () {
+            //     infoWindow.close();
+            // });
 
             farmPolygon.setMap(mapRef.current);
         });

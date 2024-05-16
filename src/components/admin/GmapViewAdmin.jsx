@@ -125,13 +125,9 @@ const GmapViewAdmin = ({ user, accessToken, selected, farms, setShowMap, clearSe
                             Status: ${selected.status}`
         });
 
-        farmPolygon.addListener('mouseover', function (event) {
+        farmPolygon.addListener('click', function (event) {
             infoWindow.setPosition(event.latLng);
             infoWindow.open(mapRef.current);
-        });
-
-        farmPolygon.addListener('mouseout', function () {
-            infoWindow.close();
         });
 
         farmPolygon.setMap(mapRef.current);
