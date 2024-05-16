@@ -70,7 +70,7 @@ export default function AdmRice({ user, accessToken, farms }) {
                 <thead>
                     <tr className='bg-blue-100'>
                         <th className='p-2'>Farm ID</th>
-                        <th>Owner</th>
+                        <th>Farmer</th>
                         <th>Area to be Planted (ha)</th>
                         <th>Barangay</th>
                         <th>No. of Bags</th>

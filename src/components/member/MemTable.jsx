@@ -105,7 +105,7 @@ export default function MemTable({ member, setSelected, setModal, selected, acce
                                     <td>{data.birth_date}</td>
                                     <td>{data.gender}</td>
                                     <td>{data.phone_number}</td>
-                                    <td>{data.role}</td>
+                                    <td>{data.role === 'member' ? 'farmer' : 'member'}</td>
                                     <td><p className={`${data.status === 'active' ? 'bg-emerald-300' :'bg-red-200'} py-1`}>{data.status}</p></td>
                                     <td className='flex flex-col gap-2 p-2'> 
                                         <div className='flex gap-1 items-center cursor-pointer hover:underline'

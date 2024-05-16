@@ -88,30 +88,6 @@ export default function FarmModal({ selected, getFarms, accessToken, setModalOpe
                     </div>
                     <div className={`flex flex-col gap-2 w-full`}>
 
-                        <div className='flex gap-2'>
-                            <div className="flex flex-col w-3/6">
-                                <label className="ps-2">Latitude</label>
-                                <input
-                                    type="text"
-                                    placeholder="5000"
-                                    className="shadow-md px-3 py-1 rounded-md border-2 border-slate-400"
-                                    value={credentials.lat}
-                                    disabled
-                                />
-                            </div>
-                            <div className="flex flex-col w-3/6">
-                                <label className="ps-2">Longitude</label>
-                                <input
-                                    type="text"
-                                    placeholder="5000"
-                                    className="shadow-md px-3 py-1 rounded-md border-2 border-slate-400"
-                                    value={credentials.lng}
-                                    disabled
-                                />
-                            </div>
-                        </div>
-
-
                         <div className="flex flex-col">
                             <label className="ps-2">Remarks</label>
                             <input

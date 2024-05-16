@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Gmap from '../member/Gmap';
 import FarmModal from './FarmModal';
+import GmapWithPolygon from './GmapWithPolygon';
+import GmapViewAdmin from './GmapViewAdmin';
 
 export default function RequestedFarm({ user, accessToken }) {
     const [farms, setFarms] = useState([]);
-    const [selected, setSelected] = useState({});
+    const [selected, setSelected] = useState([]);
     const [showMap, setShowMap] = useState(false);
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
@@ -40,16 +42,31 @@ export default function RequestedFarm({ user, accessToken }) {
 
     useEffect(() => {
         getFarms();
+        // console.log(farms)
+        // farms.map(data => {
+        //     if (data.polygon) {
+        //         let polygonArray = JSON.parse(data.polygon);
+        //         polygonArray.forEach(point => {
+        //             console.log("Latitude:", point.lat);
+        //             console.log("Longitude:", point.lng);
+        //         });
+        //     }
+
+        // })
+        // Now polygonArray is an array of objects
+        // You can access each object's properties like this
+
     }, [currentPage, isCompleted, q])
     return (
         <div className='p-4 bg-white rounded-lg shadow-sm text-sm'>
             {
                 !showMap ? "" :
-                    <Gmap user={user} accessToken={accessToken} setShowMap={setShowMap} selected={selected} isAdmin={true} clearSelected={clearSelected} />
+                    <GmapViewAdmin user={user} accessToken={accessToken} setShowMap={setShowMap} selected={selected} isAdmin={true} clearSelected={clearSelected} />
             }
             {
                 !isModalOpen ? "" :
-                    <FarmModal user={user} accessToken={accessToken} selected={selected} setModalOpen={setModalOpen} farms={farms} getFarms={getFarms} clearSelected={clearSelected} />
+                    <FarmModal user={user} accessToken={accessToken} selected={selected} setModalOpen={setModalOpen} getFarms={getFarms} farms={farms} clearSelected={clearSelected} />
+
             }
             <p className='font-bold text-lg text-slate-600 py-3'>REQUESTED FARM LAND</p>
             <div className='flex justify-between px-5'>
@@ -57,15 +74,15 @@ export default function RequestedFarm({ user, accessToken }) {
                     <p>Filter: </p>
                     <input type='checkbox' className='cursor-pointer' onChange={(e) => setIsCompleted(e.target.checked)} />APPROVED <span className='text-slate-400'>|</span>
                     <div className="flex gap-2 items-center w-3/6">
-                            <label className="ps-2">Search</label>
-                            <input
-                                type="text"
-                                placeholder="Name, Barangay"
-                                className="shadow-md px-3 py-1 rounded-md border-2 border-slate-400 w-full"
-                                value={q}
-                                onChange={(e) => setQ(e.target.value)}
-                            />
-                        </div>
+                        <label className="ps-2">Search</label>
+                        <input
+                            type="text"
+                            placeholder="Name, Barangay"
+                            className="shadow-md px-3 py-1 rounded-md border-2 border-slate-400 w-full"
+                            value={q}
+                            onChange={(e) => setQ(e.target.value)}
+                        />
+                    </div>
                 </div>
                 <div>
                     {/* <button className='py-1 px-2 bg-teal-500 text-white flex gap-1 items-center hover:bg-teal-600 duration-200'
@@ -101,7 +118,7 @@ export default function RequestedFarm({ user, accessToken }) {
                                     <td>{`${farm.first_name}${farm.middle_name ? ` ${farm.middle_name}` : ''}${farm.last_name ? ` ${farm.last_name}` : ''}${farm.suffix ? ` ${farm.suffix}` : ''}`}</td>
                                     <td>{farm.lot_size}</td>
                                     <td>{farm.establish_date}</td>
-                                    <td>{farm.barangay  }</td>
+                                    <td>{farm.barangay}</td>
                                     <td>{farm.remarks}</td>
                                     <td className='p-4'><p className={`${farm.status === 'APPROVED' ? 'bg-emerald-300' : farm.status === 'CANCELED' ? 'bg-red-300' : 'bg-amber-300'}`}>{farm.status}</p></td>
                                     <td className='p-2 pe-2'>

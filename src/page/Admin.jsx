@@ -12,7 +12,6 @@ import Enu from "../components/enumerator/Enu";
 import Sta from "../components/staff/Sta";
 import Dashboard from "../components/admin/Dashboard";
 import Mem from "../components/member/Mem";
-import Subsidy from "../components/member/Subsidy";
 import FarmLand from "../components/member/FarmLand";
 import RequestedFarm from "../components/admin/RequestedFarm";
 import AdmCash from "../components/admin/AdmCash";

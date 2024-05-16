@@ -33,6 +33,9 @@ export default function Mem({ accessToken, user }) {
     };
     useEffect(() => {
         getMember();
+        if(totalPages<currentPage){
+            setCurrentPage(1)
+        }
     }, [selected, currentPage, q, isCompleted])
     return (
         <div className='flex flex-col gap-5 w-full bg-white p-2 text-sm'>

@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Gmap from './Gmap';
 import MainMap from './MainMap';
+import MapWithPolygon from './MapWithPolygon';
 
 export default function Dashboard({ accessToken, user, farms }) {
     const [showMap, setShowMap] = useState(false);
     const [location, setLocation] = useState({})
     const [credentials, setCredentials] = useState({ user_id: user.id, status: "PENDING" })
+    
 
     return (
         <div className='bg-white p-5 rounded-lg shadow-lg flex flex-col'>
@@ -30,7 +32,8 @@ export default function Dashboard({ accessToken, user, farms }) {
             }
 
             <div>
-                <MainMap farms={farms} user={user} setCredentials={setCredentials} credentials={credentials} accessToken={accessToken} />
+                {/* <MainMap farms={farms} user={user} setCredentials={setCredentials} credentials={credentials} accessToken={accessToken} /> */}
+                <MapWithPolygon user={user} accessToken={accessToken} farms={farms} />
             </div>
         </div>
     )
