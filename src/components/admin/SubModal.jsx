@@ -33,7 +33,7 @@ export default function SubModal({ type, user, accessToken, setModalOpen, select
         if (!credentials.received_date) return showErrorMessage("Error, Please select distributed date.")
         if (credentials.type === 'CASH') {
             if (!credentials.amount) return showErrorMessage("Error, Amount is required.")
-        } else if (credentials.type === 'RCEF RICE SEED DISTIBUTION') {
+        } else if (credentials.type === 'RCEF RICE SEED DISTIBUTION' || credentials.type === 'CORN') {
             if (!credentials.number_bags) return showErrorMessage("Error, Number of Bags is required.")
         } else {
             if (!credentials.quantity_received) return showErrorMessage("Error, Quantity is required.")
@@ -121,8 +121,33 @@ export default function SubModal({ type, user, accessToken, setModalOpen, select
                             />
                         </div>
                     </div>
+                    {/* CORNSEED */}
+                    <div className={`flex flex-col gap-2 w-full ${credentials.type !== 'CORN' ? 'hidden' : ''}`}>
+
+                        <div className="flex flex-col">
+                            <label className="ps-2">Number of Bags</label>
+                            <input
+                                type="number"
+                                placeholder="2"
+                                className="shadow-md px-3 py-1 rounded-md border-2 border-slate-400"
+                                value={credentials.number_bags}
+                                onChange={(e) => setCredentials({ ...credentials, number_bags: e.target.value })}
+                            />
+                        </div>
+
+                        <div className="flex flex-col">
+                            <label className="ps-2">Variety Received</label>
+                            <input
+                                type="text"
+                                placeholder="480"
+                                className="shadow-md px-3 py-1 rounded-md border-2 border-slate-400"
+                                value={credentials.variety_received}
+                                onChange={(e) => setCredentials({ ...credentials, variety_received: e.target.value })}
+                            />
+                        </div>
+                    </div>
                     {/* BIO-N ETC */}
-                    <div className={`${credentials.type === 'CASH' || credentials.type === 'RCEF RICE SEED DISTIBUTION' ? 'hidden' : ''}`}>
+                    <div className={`${credentials.type === 'CASH' || credentials.type === 'RCEF RICE SEED DISTIBUTION' || credentials.type === 'CORN' ? 'hidden' : ''}`}>
 
 
 

@@ -22,6 +22,7 @@ import AdmFungicide from "../components/admin/AdmFungicide";
 import AdmBion from "../components/admin/AdmBion";
 import AdminAccounts from "../components/superadmin/AdminAccounts";
 import AdmValidation from "../components/admin/AdmValidation";
+import AdmCorn from "../components/admin/AdmCorn";
 const socket = io.connect("http://localhost:3001");
 
 export default function Admin() {
@@ -105,14 +106,15 @@ export default function Admin() {
                   activePage === 'CASH' ? <AdmCash accessToken={accessToken} user={user} /> :
                     activePage === 'REQUESTED FARM' ? <RequestedFarm accessToken={accessToken} user={user} /> :
                       activePage === 'RICE SEED' ? <AdmRice accessToken={accessToken} user={user} /> :
-                        activePage === 'RODENTICIDE' ? <AdmRodenticide accessToken={accessToken} user={user} /> :
-                          activePage === 'LIQUID ZINC' ? <AdmLiquid accessToken={accessToken} user={user} /> :
-                            activePage === 'FUNGICIDE' ? <AdmFungicide accessToken={accessToken} user={user} /> :
-                              activePage === 'BIO-N' ? <AdmBion accessToken={accessToken} user={user} /> :
-                                activePage === 'admin' ? <AdminAccounts accessToken={accessToken} user={user} /> :
-                                  activePage === 'VALIDATION' ? <AdmValidation accessToken={accessToken} user={user} />
-                                    :
-                                    <Dashboard accessToken={accessToken} user={user} />
+                        activePage === 'CORN' ? <AdmCorn accessToken={accessToken} user={user} /> :
+                          activePage === 'RODENTICIDE' ? <AdmRodenticide accessToken={accessToken} user={user} /> :
+                            activePage === 'LIQUID ZINC' ? <AdmLiquid accessToken={accessToken} user={user} /> :
+                              activePage === 'FUNGICIDE' ? <AdmFungicide accessToken={accessToken} user={user} /> :
+                                activePage === 'BIO-N' ? <AdmBion accessToken={accessToken} user={user} /> :
+                                  activePage === 'admin' ? <AdminAccounts accessToken={accessToken} user={user} /> :
+                                    activePage === 'VALIDATION' ? <AdmValidation accessToken={accessToken} user={user} />
+                                      :
+                                      <Dashboard accessToken={accessToken} user={user} />
           }
         </div>
       </div>

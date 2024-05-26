@@ -70,7 +70,8 @@ export default function LiquidZinc({ user, accessToken, farms }) {
                         <th className='p-2'>Farm ID</th>
                         <th>Area to be Planted (ha)</th>
                         <th>Quantity Received (g)</th>
-                        <th>Date</th>
+                        <th>Date Received</th>
+                        <th>Date Requested</th>
                         <th>Remarks</th>
                         <th>Status</th>
                     </tr>
@@ -83,6 +84,7 @@ export default function LiquidZinc({ user, accessToken, farms }) {
                                     <td className='p-4'>{subsidy.farm_id}</td>
                                     <td>{subsidy.area_planted}</td>
                                     <td>{subsidy.quantity_received}</td>
+                                    <td>{subsidy.received_date ? getDate(subsidy.received_date) : ''}</td>
                                     <td>{getDate(subsidy.created_at)}</td>
                                     <td>{subsidy.remarks}</td>
                                     <td className='p-4'><p className={`${subsidy.status === 'COMPLETED' ? 'bg-emerald-300' : 'bg-amber-300'}`}>{subsidy.status}</p></td>

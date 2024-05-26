@@ -6,6 +6,7 @@ import Select from 'react-select';
 
 export default function Request({ type, user, accessToken, setModalOpen, farms, getSubsidies }) {
     const [credentials, setCredentials] = useState({ type: type, user_id: user.id });
+    const [isOldData, setIsOldData] = useState(false);
 
     const farmOpt = farms.map(farm => ({
         value: farm.id,
@@ -26,12 +27,11 @@ export default function Request({ type, user, accessToken, setModalOpen, farms, 
     };
 
     const handleSubmit = async () => {
-
         if (!credentials.farm_id) return showErrorMessage("Error, Please select farm.")
         if (!credentials.area_planted) return showErrorMessage("Error, Area to be planted is required.")
         if (credentials.type === 'CASH') {
             if (!credentials.amount) return showErrorMessage("Error, Amount is required.")
-        } else if (credentials.type === 'RCEF RICE SEED DISTIBUTION') {
+        } else if (credentials.type === 'RCEF RICE SEED DISTIBUTION' || credentials.type === 'CORN') {
             if (!credentials.number_bags) return showErrorMessage("Error, Number of Bags is required.")
         } else {
             if (!credentials.quantity_received) return showErrorMessage("Error, Quantity is required.")
@@ -127,8 +127,42 @@ export default function Request({ type, user, accessToken, setModalOpen, farms, 
                             />
                         </div>
                     </div>
+                    {/* CORNSEED */}
+                    <div className={`flex flex-col gap-2 w-full ${credentials.type !== 'CORN' ? 'hidden' : ''}`}>
+                        <div className="flex flex-col">
+                            <label className="ps-2">Area to be Planted (ha)</label>
+                            <input
+                                type="text"
+                                placeholder="1"
+                                className="shadow-md px-3 py-1 rounded-md border-2 border-slate-400"
+                                value={credentials.area_planted}
+                                onChange={(e) => setCredentials({ ...credentials, area_planted: e.target.value })}
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                            <label className="ps-2">Number of Bags</label>
+                            <input
+                                type="number"
+                                placeholder="2"
+                                className="shadow-md px-3 py-1 rounded-md border-2 border-slate-400"
+                                value={credentials.number_bags}
+                                onChange={(e) => setCredentials({ ...credentials, number_bags: e.target.value })}
+                            />
+                        </div>
+
+                        <div className="flex flex-col">
+                            <label className="ps-2">Variety Received</label>
+                            <input
+                                type="text"
+                                placeholder="480"
+                                className="shadow-md px-3 py-1 rounded-md border-2 border-slate-400"
+                                value={credentials.variety_received}
+                                onChange={(e) => setCredentials({ ...credentials, variety_received: e.target.value })}
+                            />
+                        </div>
+                    </div>
                     {/* BIO-N ETC */}
-                    <div className={`${credentials.type === 'CASH' || credentials.type === 'RCEF RICE SEED DISTIBUTION' ? 'hidden' : ''}`}>
+                    <div className={`${credentials.type === 'CASH' || credentials.type === 'RCEF RICE SEED DISTIBUTION' || credentials.type === 'CORN' ? 'hidden' : ''}`}>
                         <div className="flex flex-col">
                             <label className="ps-2">Area to be Planted (ha)</label>
                             <input
@@ -160,8 +194,28 @@ export default function Request({ type, user, accessToken, setModalOpen, farms, 
                                 onChange={(e) => setCredentials({ ...credentials, quantity_received: e.target.value })}
                             />
                         </div>
+
                     </div>
 
+                    <div className='flex items-center gap-2 px-3 py-1'>
+                        <input
+                            type="checkbox"
+                            placeholder="400"
+                            className="shadow-md px-3 py-1 rounded-md border-2 border-slate-400 cursor-pointer"
+                            checked={isOldData === true}
+                            onChange={(e) => setIsOldData(e.target.checked)}
+                        /> Add as old data?
+                    </div>
+                    <div className={`flex gap-2 flex-col ${!isOldData ? 'hidden' : ''}`}>
+                        <label className="ps-2">Date Requested</label>
+                        <input
+                            type="datetime-local"
+                            placeholder="400"
+                            className="shadow-md px-3 py-1 rounded-md border-2 border-slate-400"
+                            value={credentials.created_at}
+                            onChange={(e) => setCredentials({ ...credentials, created_at: e.target.value })}
+                        />
+                    </div>
                     <div className='flex justify-end gap-2 py-2'>
                         <button
                             className='text-red-600 py-1 px-2 hover:font-semibold duration-200'

@@ -202,7 +202,7 @@ export default function AdmLiquid({ user, accessToken, farms }) {
                                     <td>{subsidy.barangay}</td>
                                     <td>{subsidy.quantity_received}</td>
                                     <td>{getDate(subsidy.created_at)}</td>
-                                    <td>{getDate(subsidy.received_date)}</td>
+                                    <td>{subsidy.received_date ? getDate(subsidy.received_date) : ''}</td>
                                     <td>{subsidy.remarks}</td>
                                     <td className='p-4'><p className={`${subsidy.status === 'COMPLETED' ? 'bg-emerald-300' : subsidy.status === 'CANCELED' ? 'bg-red-400' : 'bg-amber-300'}`}>{subsidy.status}</p></td>
                                     <td>

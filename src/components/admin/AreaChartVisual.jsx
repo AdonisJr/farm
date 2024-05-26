@@ -13,7 +13,7 @@ export default function AreaChartVisual({ data, year, month, filter, week }) {
         // Determine the range of years present in the data
         const yearSet = new Set();
         jsonDataArray.forEach(jsonData => {
-            const createdYear = new Date(jsonData.updated_at).getFullYear();
+            const createdYear = new Date(jsonData.created_at).getFullYear();
             yearSet.add(createdYear);
         });
         const years = Array.from(yearSet);
@@ -21,7 +21,7 @@ export default function AreaChartVisual({ data, year, month, filter, week }) {
         // Modify the JSON data to represent the total cash subsidy given for each year
         const modifiedData = years.map(year => {
             const yearlyData = jsonDataArray.filter(jsonData => {
-                const createdYear = new Date(jsonData.updated_at).getFullYear();
+                const createdYear = new Date(jsonData.created_at).getFullYear();
                 return createdYear === year;
             });
 
@@ -42,8 +42,8 @@ export default function AreaChartVisual({ data, year, month, filter, week }) {
         const modifiedData = Array.from({ length: 12 }, (_, index) => {
             const month = index + 1;
             const monthlyData = jsonDataArray.filter(jsonData => {
-                const updatedYear = new Date(jsonData.updated_at).getFullYear();
-                const updatedMonth = new Date(jsonData.updated_at).getMonth() + 1;
+                const updatedYear = new Date(jsonData.created_at).getFullYear();
+                const updatedMonth = new Date(jsonData.created_at).getMonth() + 1;
                 return updatedYear === year && updatedMonth === month;
             });
 
@@ -68,9 +68,9 @@ export default function AreaChartVisual({ data, year, month, filter, week }) {
 
         // Loop through the JSON data and accumulate the cash amount for each day in the specified month
         jsonDataArray.forEach(jsonData => {
-            const updatedYear = new Date(jsonData.updated_at).getFullYear();
-            const updatedMonth = new Date(jsonData.updated_at).getMonth() + 1;
-            const updatedDay = new Date(jsonData.updated_at).getDate();
+            const updatedYear = new Date(jsonData.created_at).getFullYear();
+            const updatedMonth = new Date(jsonData.created_at).getMonth() + 1;
+            const updatedDay = new Date(jsonData.created_at).getDate();
 
             // Check if the data entry matches the specified year and month
             if (updatedYear === year && updatedMonth === month) {

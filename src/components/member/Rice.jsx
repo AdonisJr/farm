@@ -47,7 +47,7 @@ export default function Rice({ user, accessToken, farms }) {
                 !isModalOpen ? "" :
                     <Request type={type} user={user} accessToken={accessToken} setModalOpen={setModalOpen} farms={farms} getSubsidies={getSubsidies} />
             }
-            <p className='font-bold text-lg text-slate-600 py-3'>CASH SUBSIDY</p>
+            <p className='font-bold text-lg text-slate-600 py-3'>RCEF RICE SEED DISTIBUTION SUBSIDY</p>
             <div className='flex justify-between px-5'>
                 <div className='flex gap-2 py-2 cursor-pointer'>
                     <p>Filter: </p>
@@ -71,6 +71,7 @@ export default function Rice({ user, accessToken, farms }) {
                         <th>No. Of Bags</th>
                         <th>Variety</th>
                         <th>Date Received</th>
+                        <th>Date Requested</th>
                         <th>Remarks</th>
                         <th>Status</th>
                     </tr>
@@ -84,6 +85,7 @@ export default function Rice({ user, accessToken, farms }) {
                                     <td>{subsidy.area_planted}</td>
                                     <td>{subsidy.number_bags}</td>
                                     <td>{subsidy.variety_received}</td>
+                                    <td>{subsidy.received_date ? getDate(subsidy.received_date) : ''}</td>
                                     <td>{getDate(subsidy.created_at)}</td>
                                     <td>{subsidy.remarks}</td>
                                     <td className='p-4'><p className={`${subsidy.status === 'COMPLETED' ? 'bg-emerald-300' : 'bg-amber-300'}`}>{subsidy.status}</p></td>

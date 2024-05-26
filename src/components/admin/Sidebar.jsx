@@ -10,12 +10,12 @@ export default function Sidebar({ activePage, handleActivePage, user, setUser, s
     <div className="flex flex-col fixed justify-between w-56 p-2 min-h-screen text-start gap-1 bg-white text-slate-600 font-semibold">
 
       <div className="flex justify-center items-center border-b-2 border-slate-200">
-        <img src="http://localhost:3000/logo.png" className="w-20" />
-        <p className="font-serif text-3xl">CCSMS</p>
+        <img src="http://localhost:3000/logo.png" className="w-10" />
+        <p className="font-serif text-xl">CCSMS</p>
       </div>
 
       {/* middle */}
-      <div className="flex p-2 flex-col gap-2">
+      <div className="flex p-2 flex-col">
         <button
           className={`flex gap-1 items-center hover:bg-teal-500 text-black hover:text-white duration-200 p-2 rounded-t-sm ${activePage === "Dashboard" ? "text-white bg-teal-500" : "text-black"
             } duration-200 text-left`}
@@ -107,6 +107,16 @@ export default function Sidebar({ activePage, handleActivePage, user, setUser, s
               <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM2.468 15.426.943 9h14.114l-1.525 6.426a.75.75 0 0 1-.729.574H3.197a.75.75 0 0 1-.73-.574z" />
             </svg>
             RICE SEED
+          </button>
+          <button
+            className={` flex items-center gap-1 hover:bg-teal-500 text-black hover:text-white duration-200 p-2 rounded-t-sm ${activePage === "CORN" ? "text-white bg-teal-500" : "text-black"
+              } duration-200 text-left`}
+            onClick={() => handleActivePage("CORN")}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-basket3-fill" viewBox="0 0 16 16">
+              <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM2.468 15.426.943 9h14.114l-1.525 6.426a.75.75 0 0 1-.729.574H3.197a.75.75 0 0 1-.73-.574z" />
+            </svg>
+            CORN SEED
           </button>
           <button
             className={`flex gap-1 items-center hover:bg-teal-500 text-black hover:text-white duration-200 p-2 rounded-t-sm ${activePage === "RODENTICIDE" ? "text-white bg-teal-500" : "text-black"

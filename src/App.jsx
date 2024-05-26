@@ -15,6 +15,7 @@ import Fungicide from "./components/member/Fungicide";
 import Bion from "./components/member/Bion";
 import Requested from "./components/member/Requested";
 import Validation from "./components/member/Validation";
+import Corn from "./components/member/Corn";
 const socket = io.connect("http://localhost:3001");
 
 export default function App() {
@@ -111,7 +112,8 @@ export default function App() {
                           activePage === 'BIO-N' ? <Bion accessToken={accessToken} user={user} farms={farms} /> :
                             activePage === 'REQUESTED' ? <Requested accessToken={accessToken} user={user} farms={farms} /> :
                               activePage === 'VALIDATION' ? <Validation accessToken={accessToken} user={user} farms={farms} /> :
-                                ""
+                                activePage === 'CORN' ? <Corn accessToken={accessToken} user={user} farms={farms} /> :
+                                  ""
             }
           </div>
         }

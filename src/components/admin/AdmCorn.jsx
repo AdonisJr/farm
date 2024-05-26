@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import SubModal from './SubModal';
-import Select from 'react-select'
+import Select from 'react-select';
 // import Request from './Request';
 
-export default function AdmFungicide({ user, accessToken, farms }) {
+export default function AdmCorn({ user, accessToken, farms }) {
     const [subsidies, setSubsidies] = useState([]);
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
+    const [q, setQ] = useState("");
     const [isCompleted, setIsCompleted] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
     const [type, setType] = useState("");
     const [selected, setSelected] = useState("");
-    const [q, setQ] = useState("");
     const [barangay, setBarangay] = useState("");
     const [filter, setFilter] = useState("monthly");
     const [month, setMonth] = useState("")
@@ -42,7 +42,7 @@ export default function AdmFungicide({ user, accessToken, farms }) {
         printData += 'th, td {padding: 8px; text-align: left; border-bottom: 1px solid #ddd;}';
         printData += '.title {text-align: center; padding: 5px}';
         printData += '</style>';
-        printData += `<h1 class="title">FUNGICIDE Subsidy Report</h1>`;
+        printData += `<h1 class="title">CORN SEED DISTIBUTION Subsidy Report</h1>`;
         printData += '<table>';
         printData += '<thead>';
         printData += '<tr>';
@@ -98,7 +98,7 @@ export default function AdmFungicide({ user, accessToken, farms }) {
 
     const getSubsidies = async () => {
         await axios
-            .get(`/subsidy?type=FUNGICIDE&q=${q}&barangay=${barangay}&month=${month}&year=${year}`, {
+            .get(`/subsidy?type=CORN&q=${q}&barangay=${barangay}&month=${month}&year=${year}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
@@ -126,7 +126,7 @@ export default function AdmFungicide({ user, accessToken, farms }) {
             }
             <div className='flex justify-between pe-10'>
 
-                <p className='font-bold text-lg text-slate-600 py-3'>FUNGICIDE SUBSIDY</p>
+                <p className='font-bold text-lg text-slate-600 py-3'>CORN SEED DISTIBUTION SUBSIDY</p>
                 <button
                     className='flex gap-2 items-center hover:text-slate-600 duration-200'
                     onClick={handlePrint}
@@ -180,10 +180,11 @@ export default function AdmFungicide({ user, accessToken, farms }) {
                 <thead>
                     <tr className='bg-blue-100'>
                         <th className='p-2'>Farm ID</th>
-                        <th>Owner</th>
+                        <th>Farmer</th>
                         <th>Area to be Planted (ha)</th>
                         <th>Barangay</th>
-                        <th>Quantity Received (g)</th>
+                        <th>No. of Bags</th>
+                        <th>Variety</th>
                         <th>Requested Date</th>
                         <th>Received Date</th>
                         <th>Remarks</th>
@@ -200,7 +201,8 @@ export default function AdmFungicide({ user, accessToken, farms }) {
                                     <td>{`${subsidy.first_name}${subsidy.middle_name ? ` ${subsidy.middle_name}` : ''}${subsidy.last_name ? ` ${subsidy.last_name}` : ''}${subsidy.suffix ? ` ${subsidy.suffix}` : ''}`}</td>
                                     <td>{subsidy.area_planted}</td>
                                     <td>{subsidy.barangay}</td>
-                                    <td>{subsidy.quantity_received}</td>
+                                    <td>{subsidy.number_bags}</td>
+                                    <td>{subsidy.variety}</td>
                                     <td>{getDate(subsidy.created_at)}</td>
                                     <td>{subsidy.received_date ? getDate(subsidy.received_date) : ''}</td>
                                     <td>{subsidy.remarks}</td>

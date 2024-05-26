@@ -204,7 +204,7 @@ export default function AdmRice({ user, accessToken, farms }) {
                                     <td>{subsidy.number_bags}</td>
                                     <td>{subsidy.variety}</td>
                                     <td>{getDate(subsidy.created_at)}</td>
-                                    <td>{getDate(subsidy.received_date)}</td>
+                                    <td>{subsidy.received_date ? getDate(subsidy.received_date) : ''}</td>
                                     <td>{subsidy.remarks}</td>
                                     <td className='p-4'><p className={`${subsidy.status === 'COMPLETED' ? 'bg-emerald-300' : subsidy.status === 'CANCELED' ? 'bg-red-400' : 'bg-amber-300'}`}>{subsidy.status}</p></td>
                                     <td>
